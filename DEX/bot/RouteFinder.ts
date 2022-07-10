@@ -8,6 +8,7 @@ const baseToken = Tokens.WBNB;
 const HOPS = 3;
 const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
+//Fetches pair contracts address from DEX (LP address)
 export const fetchPairContracts = async (route: Token[], provider: any) => {
   const factoryContract = new ethers.Contract(
     exFactory,
@@ -17,6 +18,7 @@ export const fetchPairContracts = async (route: Token[], provider: any) => {
   return await factoryContract.getPair(route[0].address, route[1].address);
 };
 
+//Finds routes through the graph
 export const findRoutes = async (provider: any) => {
   const bscTokens: Token[] = [
     Tokens.WBNB,

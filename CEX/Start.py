@@ -11,6 +11,7 @@ OPPORTUNITY_THRESHOLD = 0.2
 TRADE_AMOUNT = 100
 MAX_DIFF = 1.5
 
+#Calculates buy and sell price available for the order size on an exchange
 def calculatePrice(exchange,symbol):
     MIN_DEPTH = TRADE_AMOUNT
     index=ask=depth_bid=depth_ask = 0
@@ -30,12 +31,13 @@ def calculatePrice(exchange,symbol):
             index +=1
     return {'ask':ask,'bid':bid}
 
+#Executes two necessary arbitrage trades
 def executeOrder(exchange1,exchange2,buyPrice,sellPrice,sellAmount,symbol):
     currencies = symbol.split('/')
     exchange1.create_limit_buy_order(symbol,TRADE_AMOUNT,buyPrice)
     exchange2.create_limit_sell_order(symbol,sellAmount,sellPrice)
     
-
+#Starts arbitrage checking after initializing exchanges
 def main():
 
     tradingPairs = getTradingPairs()
@@ -44,7 +46,8 @@ def main():
     startCLI()
     exchangePairs = [[exchange1,exchange2] for exchange1 in exchanges for exchange2 in exchanges if exchange1 != exchange2]
     checkMarkets(tradingPairs,exchangePairs)
-    
+
+#Checks for available arbitrage opportunities between given trading pair and exchange pair
 def checkMarkets(tradingPairs,exchangePairs):
     while True:
         sleep(5)
