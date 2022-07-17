@@ -62,7 +62,7 @@ def checkMarkets(tradingPairs,exchangePairs):
                     ask1,ask2 = price1['ask'],price2['ask']
                     if bid1 == 0 or ask1 == 0 or bid2 == 0 or ask2 == 0: continue
                     if bid2 > MAX_DIFF*ask1 or ask1 > MAX_DIFF*bid2: continue 
-                    mixedOut = TRADE_AMOUNT*ask1/bid2-TRADE_AMOUNT
+                    mixedOut = TRADE_AMOUNT*bid2/ask1-TRADE_AMOUNT
                     fee1=TRADE_AMOUNT*ex1['fee']
                     fee2=TRADE_AMOUNT*ex2['fee']
                     outcome = ((mixedOut-fee1-fee2)/TRADE_AMOUNT)*100
